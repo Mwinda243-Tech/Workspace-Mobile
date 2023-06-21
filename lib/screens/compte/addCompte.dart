@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wpmobile/controler/api_php/api_php.dart';
+import 'package:wpmobile/controler/api_php/users/userController.dart';
+import 'package:wpmobile/models/user2.dart';
 
 
 
@@ -280,8 +282,12 @@ class _AddCompteState extends State<AddCompte> {
           Center(
             child: InkWell(
               onTap: (){
+                print("--------------------------------------------");
                 if (type_agent_choisi != null && type_compte_choisi != null) {
-                  Api_php.register(nom, postnom, prenom," ", mail, passw, type_compte_choisi!, type_agent_choisi!);
+                //  Api_php.register(nom, postnom, prenom," ", mail, passw, type_compte_choisi!, type_agent_choisi!);
+                 // UserController.registerLocal(User2(nom: nom, postNom: postnom, prenom: prenom, email: mail, passw: passw, about: "Me",idStatut: 1, imagePath: ""));
+                 UserController.register(nom, postnom, prenom, 'M', mail, passw, "ACTIF", "ADMIN");
+                 // UserController.recupLocal();
                   Navigator.pop(context);
                 }
               

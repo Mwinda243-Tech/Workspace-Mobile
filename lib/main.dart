@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:wpmobile/controler/Api_sharedPreferences.dart';
+import 'package:wpmobile/controler/api_php/users/authentification.dart';
+import 'package:wpmobile/controler/api_php/users/userController.dart';
 import 'package:wpmobile/controler/provider/compte_provider.dart';
 import 'package:wpmobile/screens/Home_Screen.dart';
 import 'package:wpmobile/screens/authentification/acceuil.dart';
@@ -32,6 +34,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => Compte_provider()),
+          ChangeNotifierProvider(create: (context) => Authentifier()),
+          ChangeNotifierProvider(create: (context) => UserController()),
+
         ],
 
       child: MaterialApp(
