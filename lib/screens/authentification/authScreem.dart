@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'package:wpmobile/controler/api_php/api_php.dart';
-import 'package:wpmobile/controler/api_php/users/login.dart';
+import 'package:wpmobile/controler/api_php/users/authentification.dart';
 import 'package:wpmobile/screens/Home_Screen.dart';
 
 
@@ -96,10 +97,26 @@ class _Auth_ScreemState extends State<Auth_Screem> {
     });
   }
 
-  
-
   @override
-  
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    print("initstate -------------------------------------------");
+   // context.read<Authentifier>().session();
+    var  session = context.read<Authentifier>().userConnect;
+    print("$session ----------------------------------------");
+
+    print("voici la session: ${session?.postNom} ----------------------------------");
+    if(session != null){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
+        return Home_Screen();
+      }));
+
+    }else{
+      return null;
+    }
+  }
+
   Widget build(BuildContext context) {
     //initState();
       return Scaffold(
@@ -274,15 +291,25 @@ class _Auth_ScreemState extends State<Auth_Screem> {
                                   chronox=0;
                                   
                                 });
-                              startTimer();
+                             startTimer();
                               setState(() {
                                 pressed = true;
                                 print(pressed);
                               });
-                              
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> const Home_Screen()));
-                              //Api_php.login(context, mail,pass);
+                              print("CLICQUER-------------------");
+                              var status = await context.read<Authentifier>().connexion(mail, pass);
+                              if(status != null){
+                                setState(() {});
+                                var session = context.read<Authentifier>().session();
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Home_Screen()));
+                              } else {
 
+                              print("ECHEC----------------------------------");
+                              msgBox("Mot de passe ou adresse email incorrect",1);
+                              setState(() {
+                                pressed = false;
+                              });
+                              }
                               /* var al = await login(context, mail, pass);
                               print(al);
 

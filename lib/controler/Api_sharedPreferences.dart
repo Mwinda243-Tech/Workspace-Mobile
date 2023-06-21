@@ -16,3 +16,7 @@ shareset(key, value) {
 shareget(key) {
   return sharedPreferences!.getString(key);
 }
+
+shareclear(key) async {
+    await sharedPreferences!.remove(key);
+}

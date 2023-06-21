@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:wpmobile/controler/Api_sharedPreferences.dart';
+import 'package:wpmobile/controler/api_php/users/authentification.dart';
 import 'package:wpmobile/controler/provider/compte_provider.dart';
 import 'package:wpmobile/controler/style.dart';
+import 'package:wpmobile/screens/Home_Screen.dart';
+import 'package:wpmobile/screens/authentification/authScreem.dart';
 import 'package:wpmobile/screens/compte/addCompte.dart';
 import 'package:wpmobile/screens/post/AddPost_Screen.dart';
 import 'package:wpmobile/screens/presence/presence_Screen.dart';
@@ -241,8 +244,9 @@ Widget bt_menu(String titre ,double width){
           break;
         }
         case "Déconnexion": {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>Test()));
-
+         // Navigator.push(context, MaterialPageRoute(builder: (context)=>Test()));
+          context.read<Authentifier>().finSession();
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>Auth_Screem()));
           /* //-------------selectionner un seul fichier-----
           FilePickerResult? a = await FilePicker.platform.pickFiles();
           PlatformFile b = a!.files.first;
